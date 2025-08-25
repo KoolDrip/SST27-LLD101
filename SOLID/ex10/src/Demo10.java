@@ -1,5 +1,9 @@
 public class Demo10 {
     public static void main(String[] args) {
-        new ReportService().generate();
+        // Console-based
+        ReportService report1 = new ReportService(new ConsoleLogger());
+        report1.generate();
+
+        System.out.println("Check report.log for file logs.");
     }
 }
