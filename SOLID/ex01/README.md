@@ -3,7 +3,7 @@
 How to run:
 ```bash
 cd src
-javac Demo01.java.java
+javac Demo01.java
 java Demo01
 ```
 
