@@ -1,11 +1,19 @@
+import java.util.*;
 
 public class PaymentService {
-    String pay(Payment p){
-        switch (p.provider) {
-            case "CARD": return "Charged card: " + p.amount;
-            case "UPI":  return "Paid via UPI: " + p.amount;
-            case "WALLET": return "Wallet debit: " + p.amount;
-            default: throw new RuntimeException("No provider");
+    private final Map<String, PaymentProcessor> processors = new HashMap<>();
+
+    public PaymentService(List<PaymentProcessor> processorsList) {
+        for (PaymentProcessor processor : processorsList) {
+            processors.put(processor.getProvider(), processor);
         }
+    }
+
+    public String pay(Payment p) {
+        PaymentProcessor processor = processors.get(p.provider);
+        if (processor == null) {
+            throw new RuntimeException("No provider: " + p.provider);
+        }
+        return processor.pay(p);
     }
 }
